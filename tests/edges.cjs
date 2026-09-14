@@ -1,0 +1,27 @@
+const {chromium}=(()=>{try{return require('playwright')}catch(_){return require('/data/workspace/toddler-english-ios/prototype/node_modules/playwright')}})();
+const assert=require('node:assert/strict'),path=require('node:path');
+const url=require('node:url').pathToFileURL(path.resolve(__dirname,'../index.html')).href;
+(async()=>{const browser=await chromium.launch({headless:true,args:['--no-sandbox']});let checks=0;
+try{const context=await browser.newContext({viewport:{width:390,height:844},offline:true}),p=await context.newPage(),errors=[],network=[];p.on('pageerror',e=>errors.push(e.message));p.on('console',m=>{if(m.type()==='error')errors.push(m.text())});p.on('request',r=>{if(/^https?:/.test(r.url()))network.push(r.url())});
+await p.addInitScript(()=>{window.audioCalls=[];window.voiceMode='ready';Object.defineProperty(window,'SpeechSynthesisUtterance',{value:function(text){this.text=text}});Object.defineProperty(window,'speechSynthesis',{value:{getVoices:()=>voiceMode==='none'?[]:[{lang:'en-US',localService:true}],cancel(){},speak(u){window.utterance=u;audioCalls.push({text:u.text,lang:u.lang,local:u.voice.localService});if(voiceMode!=='hung')setTimeout(()=>u.onend(),20)}}});});
+await p.goto(url);const key='little-english-progress-v2';
+assert.equal(await p.evaluate(()=>localStorage.length),0,'opening app writes no progress');checks++;
+await p.keyboard.press('Tab');assert.equal(await p.locator('[data-action="stop"]').evaluate(b=>b===document.activeElement),true);assert.notEqual(await p.locator('[data-action="stop"]').evaluate(b=>getComputedStyle(b).outlineStyle),'none');checks++;
+async function click(s){await p.locator(s).first().click();await p.waitForTimeout(465)}
+await click('[data-stage="colours"]');await click('[data-action="next"]');
+for(const w of ['red','blue','yellow','green']){
+assert.equal(await p.locator('.word').innerText(),w);await click('[data-action="next"]');
+const svgs=await p.locator('.choice>svg').evaluateAll(xs=>xs.map(x=>x.innerHTML.replace(/#[a-f\d]{6}/gi,'#colour')));assert.equal(svgs[0],svgs[1],'colour quiz has identical shapes');
+await click('[data-answer="correct"]');if(w==='green'){await p.locator('[data-action="next"]').click();await p.waitForTimeout(30)}else await click('[data-action="next"]');}
+assert.equal(await p.locator('#app').getAttribute('data-phase'),'recap');assert.equal(await p.locator('.recap-sticker').evaluate(e=>getComputedStyle(e).animationName),'arrive');await p.reload();assert.deepEqual(await p.evaluate(k=>JSON.parse(localStorage.getItem(k)),key),{version:2,completed:['colours']});checks++;
+await p.emulateMedia({reducedMotion:'reduce'});await click('[data-stage="fire-trucks"]');
+await p.evaluate(()=>{voiceMode='none'});await click('[data-action="replay"]');assert.match(await p.locator('#audio-status').innerText(),/אין קול/);
+await p.evaluate(()=>{voiceMode='ready'});await click('[data-action="replay"]');assert.equal(await p.locator('[data-action="next"]').isDisabled(),false);assert.deepEqual(await p.evaluate(()=>audioCalls.at(-1).lang),'en-US');checks++;
+await p.evaluate(()=>{voiceMode='hung'});await click('[data-action="replay"]');assert.equal(await p.locator('[data-action="next"]').isDisabled(),true);
+await p.evaluate(()=>{Object.defineProperty(document,'hidden',{configurable:true,value:true});document.dispatchEvent(new Event('visibilitychange'));Object.defineProperty(document,'hidden',{configurable:true,value:false});document.dispatchEvent(new Event('visibilitychange'))});assert.equal(await p.locator('[data-action="next"]').isDisabled(),false);assert.match(await p.locator('#audio-status').innerText(),/בוטלה/);checks++;
+await click('[data-action="replay"]');await p.evaluate(()=>{window.oldUtterance=utterance});await click('[data-action="replay"]');await p.evaluate(()=>oldUtterance.onend());assert.equal(await p.locator('[data-action="next"]').isDisabled(),true);await click('[data-action="stop"]');await p.evaluate(()=>utterance.onend());assert.equal(await p.locator('#app').getAttribute('data-phase'),'home');checks++;
+await p.evaluate(()=>{voiceMode='ready'});await click('[data-stage="fire-trucks"]');await click('[data-action="next"]');for(let i=0;i<4;i++){await click('[data-action="next"]');await click('[data-answer="correct"]');await click('[data-action="next"]')}
+assert.equal(await p.locator('.recap-sticker').evaluate(e=>getComputedStyle(e).animationName),'none');assert.equal(await p.locator('#app').getAttribute('data-phase'),'recap');await p.waitForTimeout(600);assert.equal(await p.locator('#app').getAttribute('data-phase'),'recap','no auto next');await click('[data-action="continue"]');assert.equal(await p.locator('#app').getAttribute('data-stage'),'vehicles');assert.equal(await p.locator('#app').getAttribute('data-phase'),'explore');checks++;
+await p.evaluate(k=>localStorage.setItem(k,'{'),key);await p.reload();assert.match(await p.locator('#storage-status').innerText(),/לא תקינים/);assert.equal(await p.locator('[data-completed="true"]').count(),0);checks++;
+assert.deepEqual(errors,[]);assert.deepEqual(network,[]);console.log(`PASS ${checks} edge checks: opening privacy, keyboard, same-shape colours, reload during celebration, late voice, background recovery, stale speech, explicit continue/reduced motion, corrupt storage; zero console/page errors and HTTP requests.`);await context.close();
+}finally{await browser.close()}})().catch(e=>{console.error(e);process.exitCode=1});

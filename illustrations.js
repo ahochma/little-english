@@ -1,0 +1,39 @@
+/* Original lesson illustrations. No external assets. */
+(function(root){
+ const wheel=(x,y,r=37)=>`<circle cx="${x}" cy="${y}" r="${r}" fill="#344b4b"/><circle cx="${x}" cy="${y}" r="${r*.53}" fill="#fff6e7"/><circle cx="${x}" cy="${y}" r="${r*.22}" fill="#a4b7af"/>`;
+ const truck=`<ellipse cx="319" cy="335" rx="237" ry="18" fill="#ddcfb7"/>
+ <path d="M113 181Q113 166 130 166H361V287H113Z" fill="#c54132"/>
+ <path d="M361 173H443Q454 173 461 186L504 246V284H356Z" fill="#df5141"/>
+ <rect x="105" y="268" width="407" height="24" rx="9" fill="#fff4d9"/>
+ <path d="M381 192H435L466 234H381Z" fill="#d3e5dc"/>
+ <path d="M399 194V231" stroke="#fffaf0" stroke-width="9"/>
+ <rect x="134" y="190" width="180" height="62" rx="8" fill="#e6d5b6"/>
+ <path d="M144 204H305M144 218H305M144 232H305" stroke="#c7b797" stroke-width="4"/>
+ <rect x="332" y="199" width="9" height="41" rx="4" fill="#f4d58e"/>
+ <path d="M416 256Q433 270 451 254" fill="none" stroke="#683b30" stroke-width="5" stroke-linecap="round"/>
+ <circle cx="416" cy="218" r="5" fill="#344b4b"/><circle cx="446" cy="218" r="5" fill="#344b4b"/>
+ <rect x="481" y="247" width="20" height="13" rx="5" fill="#ffda85"/>
+ <rect x="397" y="156" width="37" height="16" rx="7" fill="#edb865"/>
+ <path d="M131 139H360M131 158H360M145 139V158M178 139V158M211 139V158M244 139V158M277 139V158M310 139V158M343 139V158" stroke="#657e73" stroke-width="10" stroke-linecap="round"/>
+ ${wheel(178,289)}${wheel(435,289)}
+ <path d="M120 185V252" stroke="#e87a62" stroke-width="7" stroke-linecap="round"/>`;
+ const ladder=`<ellipse cx="320" cy="348" rx="139" ry="13" fill="#e1d5bd"/><g transform="rotate(14 320 200)" stroke-linecap="round"><path d="M260 68V327M378 68V327" stroke="#627e70" stroke-width="21"/><path d="M260 104H378M260 151H378M260 198H378M260 245H378M260 292H378" stroke="#92a891" stroke-width="17"/></g>`;
+ const soloWheel=`<ellipse cx="320" cy="345" rx="128" ry="13" fill="#e1d5bd"/>${wheel(320,202,130)}<g stroke="#fff6e7" stroke-width="10" stroke-linecap="round"><path d="M320 111V130M320 274V293M229 202H248M392 202H411"/></g>`;
+ const swatch=color=>`<path d="M205 87Q245 54 306 77Q353 48 409 84Q461 102 452 160Q484 220 441 264Q425 327 355 318Q290 348 242 310Q177 311 178 248Q143 192 178 150Q166 109 205 87Z" fill="${color}"/><path d="M216 132Q229 108 259 110" fill="none" stroke="#fff6e7" stroke-opacity=".45" stroke-width="14" stroke-linecap="round"/>`;
+ const bus=`<ellipse cx="320" cy="335" rx="217" ry="17" fill="#ddcfb7"/><rect x="116" y="148" width="397" height="145" rx="29" fill="#d8aa58"/><path d="M132 251H497" stroke="#fff4d9" stroke-width="12"/><rect x="138" y="170" width="64" height="61" rx="9" fill="#d3e5dc"/><rect x="218" y="170" width="64" height="61" rx="9" fill="#d3e5dc"/><rect x="298" y="170" width="64" height="61" rx="9" fill="#d3e5dc"/><rect x="382" y="170" width="105" height="61" rx="9" fill="#d3e5dc"/>${wheel(184,290)}${wheel(442,290)}`;
+ const shadow='<ellipse cx="320" cy="346" rx="155" ry="14" fill="#e1d5bd"/>';
+ const car=shadow+`<path d="M145 222 194 210 239 144H364L424 213 482 230V293H141Z" fill="#68948d"/><path d="M247 164H302V210H216ZM318 164H354L395 210H318Z" fill="#e3eee7"/><rect x="150" y="250" width="32" height="17" rx="6" fill="#f4d58e"/>${wheel(225,288,39)}${wheel(413,288,39)}`;
+ const bicycle=shadow+`<g fill="none" stroke="#344b4b" stroke-width="12"><circle cx="190" cy="270" r="70"/><circle cx="443" cy="270" r="70"/></g><g fill="none" stroke="#b8513b" stroke-width="12" stroke-linejoin="round"><path d="M190 270 251 174 326 270H190L227 145M251 174H409L326 270 292 151M443 270 400 133H438"/></g><path d="M267 147H311M213 139H253" stroke="#344b4b" stroke-width="14" stroke-linecap="round"/>`;
+ const airplane=shadow+`<path d="M101 217 257 188 295 76Q316 51 331 81L333 183 499 167Q546 167 548 186L335 243 305 321 282 320 279 251 158 260Z" fill="#6f95ac"/><path d="m126 218-18-62 23-2 51 54" fill="#d7aa59"/><path d="m366 184 75-8" stroke="#e9f0e8" stroke-width="13" stroke-linecap="round"/>`;
+ const apple=shadow+`<path d="M316 132C231 72 146 168 203 283Q238 344 317 312Q390 348 439 277C494 172 401 72 326 132Z" fill="#c54132"/><path d="M319 139Q302 89 329 61" fill="none" stroke="#745543" stroke-width="15"/><path d="M329 94Q354 40 406 68Q388 112 329 94" fill="#6f8b63"/><path d="M230 181Q230 154 254 148" fill="none" stroke="#ec9b7c" stroke-width="14" stroke-linecap="round"/>`;
+ const banana=shadow+`<path d="M196 109Q216 261 453 222Q417 362 269 320Q161 291 179 124Z" fill="#edc25c" stroke="#b28b37" stroke-width="6"/><path d="M207 167Q245 302 422 252" fill="none" stroke="#fae0a0" stroke-width="15"/><path d="m177 126 7-29 19 9-7 25M447 221l15-6" stroke="#745543" stroke-width="14"/>`;
+ const bread=shadow+`<path d="M165 217Q159 132 256 127H380Q473 136 478 217V306H165Z" fill="#b67d44"/><path d="M185 223Q184 153 261 151H374Q453 155 454 224V286H185Z" fill="#f0d3a0"/><path d="m238 171-21 33m91-39-22 39m92-37-20 37" stroke="#b9854b" stroke-width="12" stroke-linecap="round"/>`;
+ const egg=shadow+`<path d="M324 70C264 70 202 196 203 254C203 353 444 353 443 254C441 194 385 70 324 70Z" fill="#f1e1c8" stroke="#c9b998" stroke-width="7"/><path d="M290 114Q251 153 243 197" stroke="#fffaf2" stroke-width="18" stroke-linecap="round" fill="none"/>`;
+ const face='<circle cx="279" cy="192" r="8" fill="#304742"/><circle cx="359" cy="192" r="8" fill="#304742"/>';
+ const cat=shadow+`<path d="M256 317Q218 263 256 219H384Q414 275 378 318Z" fill="#d6a268"/><path d="M382 306Q486 315 457 228" fill="none" stroke="#d6a268" stroke-width="26" stroke-linecap="round"/><path d="m220 161 4-97 81 52Q337 107 358 116L418 65 424 175Q451 265 322 271Q207 266 220 161" fill="#e2b780"/>${face}<path d="m308 218 12 10 13-10" fill="#9c6955"/><path d="m220 211 53 8m-53 22 53-10m93-12 60-10m-60 22 60 10" stroke="#745543" stroke-width="4"/>`;
+ const dog=shadow+`<path d="M245 321V236H390V321Z" fill="#b98761"/><path d="M381 285Q451 262 445 233" fill="none" stroke="#b98761" stroke-width="24" stroke-linecap="round"/><rect x="229" y="112" width="182" height="158" rx="74" fill="#d6b08a"/><path d="M242 124Q171 86 181 211Q199 250 237 192M399 124Q468 85 457 211Q441 247 405 192" fill="#755543"/>${face}<ellipse cx="320" cy="232" rx="52" ry="39" fill="#f1ddbe"/><ellipse cx="320" cy="218" rx="20" ry="14" fill="#304742"/><path d="M319 243v23q24 12 27-18" fill="#cb8275"/>`;
+ const elephant=shadow+`<path d="M192 197Q192 110 304 120H370Q441 135 421 254L417 323H368L357 268H260L251 323H201Z" fill="#829c9d"/><path d="M418 189Q471 207 453 309Q448 338 410 323" fill="none" stroke="#829c9d" stroke-width="41" stroke-linecap="round"/><ellipse cx="325" cy="191" rx="59" ry="77" fill="#b4c5bd"/><circle cx="406" cy="182" r="8" fill="#304742"/><path d="M202 174Q153 172 159 235" fill="none" stroke="#829c9d" stroke-width="12"/>`;
+ const fish=shadow+`<path d="m419 204 101-80-3 170Z" fill="#ca8c46"/><path d="M128 205Q248 63 433 205Q247 350 128 205" fill="#e6b467"/><path d="m286 130 44-55 42 83M281 275l49 43 29-63" fill="#ca8c46"/><circle cx="197" cy="189" r="11" fill="#304742"/><path d="M238 156Q269 207 238 254" stroke="#bd8040" stroke-width="8" fill="none"/><path d="m308 181-24 28 26 20" fill="#f5d79e"/>`;
+ const drawings={'fire truck':truck,ladder,wheel:soloWheel,red:swatch('#c54132'),blue:swatch('#577a9b'),yellow:swatch('#edc25c'),green:swatch('#6f8b63'),bus,car,bicycle,airplane,apple,banana,bread,egg,cat,dog,elephant,fish};
+ root.illustration=(name,scene=false)=>`<svg viewBox="0 0 640 400" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">${scene?'<path d="M0 312Q133 263 267 307Q457 254 640 303V400H0Z" fill="#e8e9d7"/><path d="M56 105Q65 78 91 94Q118 71 133 105Z" fill="#fffaf1"/><path d="M490 93Q500 58 527 78Q557 59 571 93Z" fill="#fffaf1"/><circle cx="553" cy="161" r="23" fill="#f2d69b"/>':''}${drawings[name]||truck}</svg>`;
+})(typeof window!=='undefined'?window:globalThis);

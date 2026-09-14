@@ -1,0 +1,12 @@
+{
+  "name": "five-little-journeys-v2",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Local-only five-theme toddler English browser prototype",
+  "scripts": {
+    "build": "node build.cjs",
+    "test": "node --test tests/*.test.cjs",
+    "test:browser": "node tests/browser.cjs && node tests/edges.cjs"
+  },
+  "devDependencies": {"playwright": "1.63.0"}
+}
