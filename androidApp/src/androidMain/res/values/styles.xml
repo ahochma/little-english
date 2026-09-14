@@ -1,0 +1,9 @@
+<resources>
+    <style name="Theme.LittleEnglish" parent="android:style/Theme.Material.Light.NoActionBar">
+        <item name="android:fontFamily">sans</item>
+        <item name="android:colorAccent">#AC382D</item>
+        <item name="android:navigationBarColor">#FFF7EA</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:statusBarColor">#FFF7EA</item>
+    </style>
+</resources>

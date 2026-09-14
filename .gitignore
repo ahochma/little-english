@@ -1,4 +1,7 @@
 node_modules/
+.gradle/
+build/
+local.properties
 .browsers/
 .browser-libs/
 audio-preview/
