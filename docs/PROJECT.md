@@ -97,5 +97,14 @@ The user positively reviewed the first prototype and explicitly approved expandi
 - Keep English pronunciation and Hebrew parent support, accessible targets and reduced motion, stop/break always available.
 - Verify every stage and persistence/reload/reset/corruption/replay behaviour, not just the first theme.
 
+## Kotlin Multiplatform mobile implementation
+The user explicitly approved Kotlin Multiplatform with Compose Multiplatform as the native direction, so the app can share product logic and UI across Android and iPhone/iPad. This supersedes the prior SwiftUI-only implementation assumption.
+
+- Keep one shared KMP module for lesson state, progress, Compose UI, and the five approved themes.
+- Keep Android and iOS host layers thin: app-local persistence and platform lifecycle/audio integration only.
+- The iOS host still needs a Mac with Xcode for framework compilation, signing, simulator, and physical-device verification.
+- Voice recordings remain separate local assets; no API key, remote TTS call, or system voice belongs in the app.
+- Private device/simulator testing is approved. No App Store or public release work is authorized.
+
 ## Next milestone
-Deliver and review the five-stage browser prototype with progress map and stickers. Native SwiftUI implementation remains a subsequent milestone on the user's Mac.
+Review the built Android debug app and run the iOS host on the user's Mac. Then add approved bundled voice assets and platform-local playback as a separately verified slice.
