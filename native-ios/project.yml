@@ -1,0 +1,28 @@
+name: LittleEnglishNative
+options:
+  bundleIdPrefix: com.ahochma
+  deploymentTarget:
+    iOS: "16.0"
+settings:
+  base:
+    PRODUCT_BUNDLE_IDENTIFIER: com.ahochma.littleenglish.native
+    SWIFT_VERSION: "5.9"
+    TARGETED_DEVICE_FAMILY: "1,2"
+targets:
+  LittleEnglishNative:
+    type: application
+    platform: iOS
+    sources:
+      - path: LittleEnglishNative
+    settings:
+      base:
+        INFOPLIST_KEY_CFBundleDisplayName: Little English
+        INFOPLIST_KEY_UILaunchScreen_Generation: YES
+        GENERATE_INFOPLIST_FILE: YES
+  LittleEnglishNativeTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - path: LittleEnglishNativeTests
+    dependencies:
+      - target: LittleEnglishNative
