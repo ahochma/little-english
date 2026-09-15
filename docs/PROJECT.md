@@ -97,14 +97,14 @@ The user positively reviewed the first prototype and explicitly approved expandi
 - Keep English pronunciation and Hebrew parent support, accessible targets and reduced motion, stop/break always available.
 - Verify every stage and persistence/reload/reset/corruption/replay behaviour, not just the first theme.
 
-## Kotlin Multiplatform mobile implementation
-The user explicitly approved Kotlin Multiplatform with Compose Multiplatform as the native direction, so the app can share product logic and UI across Android and iPhone/iPad. This supersedes the prior SwiftUI-only implementation assumption.
+## Native SwiftUI iOS implementation
+The user additionally requested a separate, fully native SwiftUI iOS app. It lives under `native-ios/` and supersedes the prior KMP-host-only approach for the iPhone/iPad implementation.
 
-- Keep one shared KMP module for lesson state, progress, Compose UI, and the five approved themes.
-- Keep Android and iOS host layers thin: app-local persistence and platform lifecycle/audio integration only.
-- The iOS host still needs a Mac with Xcode for framework compilation, signing, simulator, and physical-device verification.
-- Voice recordings remain separate local assets; no API key, remote TTS call, or system voice belongs in the app.
-- Private device/simulator testing is approved. No App Store or public release work is authorized.
+- Preserve the approved five-stage curriculum, local-only progress, gentle sticker system, Hebrew parent copy, and tap-only child flow.
+- Use Apple frameworks only: SwiftUI, XCTest, UserDefaults, and local bundled assets once approved.
+- Do not send text or child data to a TTS/network service. No API key is ever present in the app.
+- Use no system/Siri voice fallback. Approved recordings will be bundled and played locally in a later test-first slice.
+- iOS source and tests require macOS/Xcode validation; Linux cannot compile or simulator-test them.
 
 ## Next milestone
-Review the built Android debug app and run the iOS host on the user's Mac. Then add approved bundled voice assets and platform-local playback as a separately verified slice.
+Open `native-ios/` on the user's Mac, generate the Xcode project, run `LittleEnglishNativeTests`, and privately test the native SwiftUI app on an iPhone/iPad. No App Store or public-release work is authorized.

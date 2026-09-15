@@ -37,7 +37,28 @@ The shared Kotlin test suite passed. This Linux build host does not contain an A
 3. Let Gradle sync, select the `androidApp` run configuration, choose an Android device/emulator, and run it.
 4. The minimum Android version is API 26 (Android 8).
 
-## iPhone/iPad: open and run on your Mac
+## Native SwiftUI iOS app
+
+`native-ios/` is a separate, **fully native SwiftUI** implementation for iPhone and iPad. It shares no Kotlin runtime and uses only Apple frameworks:
+
+- SwiftUI interface and local `UserDefaults` progress storage.
+- Five approved journeys, tap-only learning loops, gentle retry, a fixed completion sticker, and deliberate parent reset.
+- No network access, accounts, analytics, tracking, microphone, camera, speech recognition, system speech synthesis, or API key.
+- Audio is intentionally silent until approved, licensed recordings are bundled locally. It cannot fall back to Siri.
+
+On the Mac with Xcode 15.4+ and XcodeGen:
+
+```bash
+cd native-ios
+brew install xcodegen
+xcodegen generate
+open LittleEnglishNative.xcodeproj
+```
+
+Select a simulator or your privately connected iPhone/iPad, select an Apple Development Team in Signing if needed, then run the `LittleEnglishNative` target. Run the `LittleEnglishNativeTests` target to execute the lesson/progress tests.
+
+The Swift source and tests were authored here, but this Linux host has no Xcode/Swift toolchain, so native iOS compilation, simulator tests, accessibility checks, and real-device verification remain to be done on your Mac.
+
 
 Requirements: Xcode 16+, JDK 21, and [XcodeGen](https://github.com/yonaskolb/XcodeGen).
 
