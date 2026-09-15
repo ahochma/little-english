@@ -83,6 +83,20 @@ struct Journey: Identifiable, Equatable {
     static func find(_ id: JourneyID) -> Journey { all.first { $0.id == id }! }
 }
 
+struct ParentGate: Equatable {
+    static let firstAddend = 3
+    static let secondAddend = 4
+    static let correctAnswer = firstAddend + secondAddend
+
+    private(set) var isUnlocked = false
+
+    mutating func answer(_ value: Int) {
+        if value == Self.correctAnswer {
+            isUnlocked = true
+        }
+    }
+}
+
 struct ProgressSnapshot: Codable, Equatable {
     var completed: Set<JourneyID> = []
     static let empty = ProgressSnapshot()

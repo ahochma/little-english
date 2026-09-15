@@ -5,7 +5,8 @@ final class AppModel: ObservableObject {
     @Published private(set) var progress: ProgressSnapshot
     @Published var activeJourney: JourneyID?
     @Published var lesson: LessonState?
-    @Published var parentSettingsOpen = false
+    @Published var parentGateOpen = false
+    @Published private(set) var parentGate = ParentGate()
 
     private let storageKey = "littleEnglishProgressV1"
 
@@ -32,6 +33,15 @@ final class AppModel: ObservableObject {
         guard let id = activeJourney else { return }
         progress.complete(id)
         save()
+    }
+
+    func beginParentSettings() {
+        parentGate = ParentGate()
+        parentGateOpen = true
+    }
+
+    func answerParentGate(_ answer: Int) {
+        parentGate.answer(answer)
     }
 
     func resetProgress() {

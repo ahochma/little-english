@@ -2,7 +2,7 @@ name: LittleEnglishNative
 options:
   bundleIdPrefix: com.ahochma
   deploymentTarget:
-    iOS: "16.0"
+    iOS: "17.0"
 settings:
   base:
     PRODUCT_BUNDLE_IDENTIFIER: com.ahochma.littleenglish.native

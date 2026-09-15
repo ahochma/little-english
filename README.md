@@ -43,6 +43,8 @@ The shared Kotlin test suite passed. This Linux build host does not contain an A
 
 - SwiftUI interface and local `UserDefaults` progress storage.
 - Five approved journeys, tap-only learning loops, gentle retry, a fixed completion sticker, and deliberate parent reset.
+- iOS 17.0 minimum deployment target with universal iPhone and iPad support.
+- Hebrew parent settings are protected by a local parent gate: select `7` for `3 + 4` before reset controls appear. A wrong answer keeps settings locked; reset still requires its existing destructive confirmation dialog.
 - No network access, accounts, analytics, tracking, microphone, camera, speech recognition, system speech synthesis, or API key.
 - Audio is intentionally silent until approved, licensed recordings are bundled locally. It cannot fall back to Siri.
 

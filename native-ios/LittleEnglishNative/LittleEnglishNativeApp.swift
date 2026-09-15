@@ -55,15 +55,20 @@ struct JourneyMapView: View {
                     }
                 }
 
-                Button("הגדרות להורים") { model.parentSettingsOpen = true }
-                    .buttonStyle(.bordered).frame(maxWidth: .infinity).padding(.top, 8)
+                Button("הגדרות להורים") { model.beginParentSettings() }
+                    .buttonStyle(.borderedProminent)
+                    .tint(Color("Ink"))
+                    .controlSize(.large)
+                    .frame(maxWidth: .infinity, minHeight: 56)
+                    .padding(.top, 8)
+                    .environment(\.layoutDirection, .rightToLeft)
                 Text("בלי ציונים, בלי לחץ · אפשר לעצור מתי שרוצים")
                     .font(.footnote).frame(maxWidth: .infinity).foregroundStyle(.secondary)
                     .environment(\.layoutDirection, .rightToLeft)
             }
             .padding(20)
         }
-        .sheet(isPresented: $model.parentSettingsOpen) { ParentSettingsView() }
+        .sheet(isPresented: $model.parentGateOpen) { ParentGateSheet() }
     }
 }
 
@@ -230,6 +235,38 @@ struct PrimaryButton: View {
     let title: String
     let action: () -> Void
     var body: some View { Button(title, action: action).buttonStyle(.borderedProminent).tint(Color("Brick")).controlSize(.large).frame(maxWidth: .infinity) }
+}
+
+struct ParentGateSheet: View {
+    @EnvironmentObject private var model: AppModel
+
+    var body: some View {
+        if model.parentGate.isUnlocked {
+            ParentSettingsView()
+        } else {
+            NavigationStack {
+                VStack(spacing: 24) {
+                    Text("להורים בלבד")
+                        .font(.title.bold())
+                    Text("כדי לפתוח את הגדרות ההורה, בחרו את התוצאה של 3 + 4.")
+                        .multilineTextAlignment(.center)
+                    ForEach([5, 7, 9], id: \.self) { answer in
+                        Button("\(answer)") { model.answerParentGate(answer) }
+                            .buttonStyle(.borderedProminent)
+                            .tint(Color("Brick"))
+                            .controlSize(.large)
+                            .font(.title2.bold())
+                            .frame(maxWidth: .infinity, minHeight: 64)
+                            .accessibilityLabel("\(answer)")
+                    }
+                    Spacer()
+                }
+                .padding(24)
+                .environment(\.layoutDirection, .rightToLeft)
+                .navigationTitle("אימות הורה")
+            }
+        }
+    }
 }
 
 struct ParentSettingsView: View {

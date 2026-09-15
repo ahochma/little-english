@@ -32,6 +32,16 @@ final class LittleEnglishNativeTests: XCTestCase {
         XCTAssertEqual(lesson.wordIndex, 1)
     }
 
+    func testParentGateStaysLockedForWrongAnswerAndUnlocksForThreePlusFour() {
+        var gate = ParentGate()
+
+        gate.answer(5)
+        XCTAssertFalse(gate.isUnlocked)
+
+        gate.answer(7)
+        XCTAssertTrue(gate.isUnlocked)
+    }
+
     func testParentResetNeedsExplicitConfirmation() {
         var progress = ProgressSnapshot(completed: [.food])
         progress.reset(confirmed: false)
